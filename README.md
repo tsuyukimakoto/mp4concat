@@ -18,7 +18,7 @@ Once you have pasted the list of files, activate the terminal (click on it) and 
 
 ## What's happening
 
-Create a file in the ~/Desktop/mp4concat folder with a list of the files passed to you (in the format used by ffmpeg's concat).
+Create a file in the ~/Desktop/mp4concat_work folder with a list of the files passed to you (in the format used by ffmpeg's concat).
 
 ## Platforms that are likely to work
 
@@ -46,7 +46,7 @@ GoProの撮影済みのSDカードの中身を日付の古い順に表示して�
 
 ## 何が起きているのか
 
-~/Desktop/mp4concat フォルダに、渡されたファイルの一覧が記載されたファイルで作成します（ffmpegのconcatで使う形式で）。
+~/Desktop/mp4concat_work フォルダに、渡されたファイルの一覧が記載されたファイルで作成します（ffmpegのconcatで使う形式で）。
 
 ## 動作すると思われるプラットフォーム
 

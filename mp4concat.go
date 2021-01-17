@@ -24,7 +24,7 @@ func basePath() string {
 		log.Print("Home directory not found")
 		log.Fatal(err)
 	}
-	dir := fmt.Sprintf("%s/Desktop/mp4concat", home)
+	dir := fmt.Sprintf("%s/Desktop/mp4concat_work", home)
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
 		os.Mkdir(dir, 0755)
 	}
