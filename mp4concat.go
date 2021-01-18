@@ -16,10 +16,10 @@ import (
 )
 
 const extMP4 = ".MP4"
-const commandFfmpeg = "ffmpeg"
 const spaceWithinFilePath = "/SPACE_WITHIN_FILE_PATH/"
 
 var reEscapeSpace = regexp.MustCompile(`(\\\s)`)
+var commandFfmpeg = "ffmpeg"
 
 func splitFilePathBySpace(str string) []string {
 	replaced := reEscapeSpace.ReplaceAllString(str, spaceWithinFilePath)
@@ -102,13 +102,21 @@ func buildFFMPEGCommandArguments(filesMP4 []string, inputFileName string, output
 	return arguments
 }
 
-func checkFFMPEGCommandExist() {
-	cmd := exec.Command(commandFfmpeg, "--help")
+func getFFMPEGCommand() string {
+	ffmpeg := commandFfmpeg
+	cmd := exec.Command(ffmpeg, "--help")
 	// fmt.Println("checking ffmpeg command installed.")
 	if err := cmd.Run(); err != nil {
-		log.Printf("%s command not found", commandFfmpeg)
-		log.Fatal(err)
+		executablePath, _ := os.Executable()
+		currentDirectory, _ := filepath.Split(executablePath)
+		ffmpeg = filepath.Join(currentDirectory, commandFfmpeg)
+		cmd := exec.Command(ffmpeg, "--help")
+		if err2 := cmd.Run(); err2 != nil {
+			log.Printf("%s command not found", commandFfmpeg)
+			log.Fatal(err2)
+		}
 	}
+	return ffmpeg
 }
 
 func createInputFile(filesMP4 []string, inputFileNameAbsolute string) {
@@ -133,7 +141,7 @@ func createInputFile(filesMP4 []string, inputFileNameAbsolute string) {
 
 func main() {
 	// mp4concat needs ffmpeg command callable
-	checkFFMPEGCommandExist()
+	ffmpeg := getFFMPEGCommand()
 
 	// Prompt users for input
 	fmt.Print("Drag and Drop files here to concat: ")
@@ -170,7 +178,7 @@ func main() {
 	arguments := buildFFMPEGCommandArguments(filesMP4, inputFileName, outputFileName)
 
 	// Exec ffmpeg command
-	cmd := exec.Command(commandFfmpeg, arguments...)
+	cmd := exec.Command(ffmpeg, arguments...)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	err := cmd.Run()
