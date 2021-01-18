@@ -20,6 +20,11 @@ Once you have pasted the list of files, activate the terminal (click on it) and 
 
 Create a file in the ~/Desktop/mp4concat_work folder with a list of the files passed to you (in the format used by ffmpeg's concat).
 
+### Notice
+
+GPS information of stream 03 will not be copied.
+If you need GPS metadata, please use official application.
+
 ## Platforms that are likely to work
 
 I tried to run it on macOS 11.1 (Big Sur).
@@ -47,6 +52,11 @@ GoProの撮影済みのSDカードの中身を日付の古い順に表示して�
 ## 何が起きているのか
 
 ~/Desktop/mp4concat_work フォルダに、渡されたファイルの一覧が記載されたファイルで作成します（ffmpegのconcatで使う形式で）。
+
+### 注意
+
+03番のストリームに入っているGPSメタデータはコピーされません。
+GPS情報が必要な場合は、純正のアプリを使用してください。
 
 ## 動作すると思われるプラットフォーム
 

@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"time"
 
@@ -16,6 +17,23 @@ import (
 
 const extMP4 = ".MP4"
 const commandFfmpeg = "ffmpeg"
+const spaceWithinFilePath = "/SPACE_WITHIN_FILE_PATH/"
+
+var reEscapeSpace = regexp.MustCompile(`(\\\s)`)
+
+func splitFilePathBySpace(str string) []string {
+	replaced := reEscapeSpace.ReplaceAllString(str, spaceWithinFilePath)
+	files := strings.Fields(replaced)
+	result := make([]string, 0, len(files))
+	for _, v := range files {
+		result = append(
+			result,
+			// strings.Replace(v, spaceWithinFilePath, "\\ ", -1),
+			strings.Replace(v, spaceWithinFilePath, " ", -1),
+		)
+	}
+	return result
+}
 
 func basePath() string {
 	// mp4concat uses ~/Desktop/mp4concat , HARD CODED for now.
@@ -100,7 +118,12 @@ func createInputFile(filesMP4 []string, inputFileNameAbsolute string) {
 		log.Fatal(err)
 	}
 	for _, v := range filesMP4 {
-		_, err := f.WriteString(fmt.Sprintf("file %s\n", v))
+		_, err := f.WriteString(
+			fmt.Sprintf(
+				"file %s\n",
+				strings.Replace(v, " ", "\\ ", -1),
+			),
+		)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -116,7 +139,11 @@ func main() {
 	fmt.Print("Drag and Drop files here to concat: ")
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
-	files := strings.Fields(scanner.Text())
+
+	files := splitFilePathBySpace(scanner.Text())
+	for _, v := range files {
+		fmt.Println(v)
+	}
 	filesMP4 := extractMP4Path(files)
 	if len(filesMP4) == 0 {
 		log.Print("Target MP4 file not found.")
