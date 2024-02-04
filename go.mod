@@ -1,8 +1,8 @@
 module github.com/tsuyukimakoto/mp4concat
 
-go 1.15
+go 1.21
 
 require (
-	github.com/google/uuid v1.1.5
-	gopkg.in/djherbis/times.v1 v1.2.0
+	github.com/google/uuid v1.6.0
+	gopkg.in/djherbis/times.v1 v1.3.0
 )
