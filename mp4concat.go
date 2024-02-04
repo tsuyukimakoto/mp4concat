@@ -98,6 +98,15 @@ func buildFFMPEGCommandArguments(filesMP4 []string, inputFileName string, output
 	arguments = append(arguments, "-metadata") // Set the oldest update date in the selected video file as the shooting date.
 	arguments = append(arguments, fmt.Sprintf("creation_time=%s", creationTime(minTime)))
 	arguments = append(arguments, "-y")
+	arguments = append(arguments, "-map")
+	arguments = append(arguments, "0:v")
+	arguments = append(arguments, "-map")
+	arguments = append(arguments, "0:a")
+	arguments = append(arguments, "-map")
+	arguments = append(arguments, "0:3")
+	arguments = append(arguments, "-copy_unknown")
+	arguments = append(arguments, "-tag:2")
+	arguments = append(arguments, "gpmd")
 	arguments = append(arguments, outputPath)
 	return arguments
 }

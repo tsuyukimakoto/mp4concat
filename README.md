@@ -22,14 +22,16 @@ Create a file in the ~/Desktop/mp4concat_work folder with a list of the files pa
 
 ### Notice
 
-GPS information of stream 03 will not be copied.
-If you need GPS metadata, please use official application.
+~~GPS information of stream 03 will not be copied.~~
+~~If you need GPS metadata, please use official application.~~
+
+The support for copying Stream 03 containing GPS information has been added in version 0.2.0 .
 
 ## Platforms that are likely to work
 
-I tried to run it on macOS 11.1 (Big Sur).
+I tried to run it on macOS 14.3 (Sonoma).
 
-go: 1.15
+go: 1.21
 
 ---
 
@@ -55,11 +57,13 @@ GoProの撮影済みのSDカードの中身を日付の古い順に表示して�
 
 ### 注意
 
-03番のストリームに入っているGPSメタデータはコピーされません。
-GPS情報が必要な場合は、純正のアプリを使用してください。
+~~03番のストリームに入っているGPSメタデータはコピーされません。~~
+~~GPS情報が必要な場合は、純正のアプリを使用してください。~~
+
+バージョン0.2.0でGPS情報の含まれるストリーム03のコピーに対応しました。
 
 ## 動作すると思われるプラットフォーム
 
-macOSの11.1(Big Sur)で動作させてみました。
+macOSの14.3(Sonoma)で動作させてみました。
 
-go: 1.15
+go: 1.21
